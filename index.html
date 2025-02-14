@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Bingo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff0f5;
+        }
+        h1 {
+            color: #d63384;
+        }
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .bingo-cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #d63384;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .marked {
+            background-color: #ffb6c1;
+            color: white;
+        }
+        #reset {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #d63384;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .bingo-progress {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #d63384;
+        }
+        .highlight {
+            color: #ff4500;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bubu & Dudu's Valentine's Bingo</h1>
+    <p>3 Years & 3 Months of Love ♥</p>
+    <div class="bingo-board" id="bingoBoard"></div>
+    <div class="bingo-progress" id="bingoProgress">B I N G O</div>
+    <button id="reset">Reset Game</button>
+
+    <script>
+        const tasks = [
+            "Made Valentine's plans", "Had a video call date", "Watched something together online", "Shared a meal over video call", "Shared a funny meme",
+            "Shared a song that reminded you of them", "Shared a song lyric", "Said 'I love you' 3+ times", "Reminisced about a memory", "Sent a virtual hug",
+            "Made future plans", "Said what you love about them", "Missed each other so much ❤️", "Shared today's outfit pic", "Planned your next meeting",
+            "Had a deep conversation", "Called just to say hi", "Sent heart emojis", "Sent a virtual kiss", "Dreamed about meeting soon",
+            "Played an online game together", "Sent a good morning text ❤️", "Made each other laugh", "Sent surprise screenshots", "Sent a cute selfie"
+        ];
+
+        const board = document.getElementById('bingoBoard');
+        let completedLines = 0;
+        let bingoLetters = ['B', 'I', 'N', 'G', 'O'];
+
+        tasks.forEach((task, index) => {
+            let cell = document.createElement('div');
+            cell.classList.add('bingo-cell');
+            cell.textContent = task;
+            cell.addEventListener('click', () => {
+                cell.classList.toggle('marked');
+                checkWin();
+            });
+            board.appendChild(cell);
+        });
+
+        function checkWin() {
+            const cells = document.querySelectorAll('.bingo-cell');
+            const winPatterns = [
+                [0, 1, 2, 3, 4], [5, 6, 7, 8, 9], [10, 11, 12, 13, 14], [15, 16, 17, 18, 19], [20, 21, 22, 23, 24], // Rows
+                [0, 5, 10, 15, 20], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], [3, 8, 13, 18, 23], [4, 9, 14, 19, 24], // Columns
+                [0, 6, 12, 18, 24], [4, 8, 12, 16, 20] // Diagonals
+            ];
+
+            let newLinesCompleted = 0;
+
+            for (let pattern of winPatterns) {
+                if (pattern.every(index => cells[index].classList.contains('marked'))) {
+                    newLinesCompleted++;
+                }
+            }
+
+            if (newLinesCompleted > completedLines) {
+                completedLines = newLinesCompleted;
+                updateBingoProgress(completedLines);
+            }
+        }
+
+        function updateBingoProgress(lines) {
+            let progressText = '';
+            for (let i = 0; i < lines && i < bingoLetters.length; i++) {
+                progressText += `<span class='highlight'>${bingoLetters[i]}</span> `;
+            }
+            for (let i = lines; i < bingoLetters.length; i++) {
+                progressText += `${bingoLetters[i]} `;
+            }
+            document.getElementById('bingoProgress').innerHTML = progressText.trim();
+
+            if (lines >= 5) {
+                setTimeout(() => alert("Congratulations! You completed BINGO! 🎉"), 100);
+            }
+        }
+
+        document.getElementById('reset').addEventListener('click', () => {
+            document.querySelectorAll('.bingo-cell').forEach(cell => cell.classList.remove('marked'));
+            completedLines = 0;
+            updateBingoProgress(0);
+        });
+    </script>
+</body>
+</html>
