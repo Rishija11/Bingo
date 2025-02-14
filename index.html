@@ -9,16 +9,28 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #fff0f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
         }
         h1 {
             color: #d63384;
+        }
+        .bingo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
         .bingo-board {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
             max-width: 500px;
-            margin: 20px auto;
+            margin: 20px;
+            z-index: 2;
         }
         .bingo-cell {
             width: 100px;
@@ -59,16 +71,62 @@
             color: #ff4500;
             font-size: 28px;
         }
+        .border-images {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
+            z-index: 1;
+        }
+        .left-border {
+            left: -160px;
+        }
+        .right-border {
+            right: -160px;
+        }
+        .border-images img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #d63384;
+        }
     </style>
 </head>
 <body>
     <h1>Bubu & Dudu's Valentine's Bingo</h1>
     <p>3 Years & 3 Months of Love ♥</p>
-    <div class="bingo-board" id="bingoBoard"></div>
+    <div class="bingo-container">
+        <div class="border-images left-border">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0023.jpg?raw=true" alt="Photo 1">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0024.jpg?raw=true" alt="Photo 2">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0025.jpg?raw=true" alt="Photo 3">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0026.jpg?raw=true" alt="Photo 4">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0027.jpg?raw=true" alt="Photo 5">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0028.jpg?raw=true" alt="Photo 6">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0029.jpg?raw=true" alt="Photo 7">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0030.jpg?raw=true" alt="Photo 8">
+        </div>
+        <div class="bingo-board" id="bingoBoard"></div>
+        <div class="border-images right-border">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0031.jpg?raw=true" alt="Photo 9">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0032.jpg?raw=true" alt="Photo 10">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0033.jpg?raw=true" alt="Photo 11">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0034.jpg?raw=true" alt="Photo 12">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0035.jpg?raw=true" alt="Photo 13">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0036.jpg?raw=true" alt="Photo 14">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0037.jpg?raw=true" alt="Photo 15">
+            <img src="https://github.com/Rishija11/Bingo/blob/main/IMG-20250214-WA0038.jpg?raw=true" alt="Photo 16">
+        </div>
+    </div>
     <div class="bingo-progress" id="bingoProgress">B I N G O</div>
     <button id="reset">Reset Game</button>
 
-    <script>
+<script>
         const tasks = [
             "Made Valentine's plans", "Had a video call date", "Watched something together online", "Shared a meal over video call", "Shared a funny meme",
             "Shared a song that reminded you of them", "Shared a song lyric", "Said 'I love you' 3+ times", "Reminisced about a memory", "Sent a virtual hug",
